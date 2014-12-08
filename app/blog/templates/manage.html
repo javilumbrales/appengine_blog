@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} Blog - Admin{% endblock %}
+{% block preload_js %}
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".delete").click(function() {
+            if (!confirm('Are you sure?')) {
+                return false;
+            }
+        });
+    });
+
+
+</script>
+{% endblock %}
+{% block content %}
+<h1>Welcome to Blog Admin!</h1>
+<a href="{% url 'logout' %}">Logout</a><br/>
+<a href="{% url 'add' %}">Add a new post</a><br/>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Category</td>
+        <td>Last Updated</td>
+        <td>Author</td>
+        <td>Edit post</td>
+        <td>Delete post</td>
+    </tr>
+    {% for article in articles %}
+
+    <tr>
+        <td>{{article.name}}</td>
+        <td>{{article.category}}</td>
+        <td>{{article.last_updated}}</td>
+        <td>{{article.user}}</td>
+        <td><a href="{% url 'edit' article.id %}">Edit</a></td>
+        <td><a class="delete" href="{% url 'delete' article.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}

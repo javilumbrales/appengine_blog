@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load filetransfers %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.cleditor.css' %}"/>
+{% endblock %}
+{% block preload_js %}
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.cleditor.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#id_content").cleditor();
+    });
+
+
+</script>
+{% endblock %}
+
+
+{% block title %} Blog - Admin{% endblock %}
+
+{% block content %}
+<h1>Welcome to Blog Admin!</h1>
+<a href="{% url 'list' %}">Go Back</a><br/>
+
+<form method="post" action="{{ upload_url }}" enctype="multipart/form-data">
+    <td>{{form}}</td>
+    {% render_upload_data upload_data %}
+    <input type="submit" value="{{action}} Post">
+
+</form>
+
+{% endblock %}

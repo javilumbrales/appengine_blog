@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load filetransfers %}
+
+{% url blog.views.download_handler pk=article.id as fallback_url %}
+
+{% block title %} Blog - Homepage{% endblock %}
+
+{% block content %}
+<h1>Welcome to Blog!</h1>
+{% for article in articles %}
+<p>
+<h3>{{article.name}}</h3>
+<img src="{% url 'serve_image' article.pk %}" alt="{{article.name}}" width="600" height="400"/>
+</p>
+<p>
+{{article.content|safe}}
+</p>
+<p>Last updated at {{article.last_updated}} by {{article.user}}</p>
+{% endfor %}
+
+{% endblock %}
